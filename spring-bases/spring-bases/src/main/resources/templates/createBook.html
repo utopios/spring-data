@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}">
+  <script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.min.js}"></script>
+  <title>Add a Book</title>
+</head>
+<body>
+<main class="container">
+  <div class="my-3 row">
+    <div class="col-10 offset-1 p-3 rounded bg-dark text-light">
+      <h1>Add a Book</h1>
+      <hr>
+      <form th:action="@{/books/create}" th:object="${book}" method="post">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title: </label>
+          <input type="text" th:field="*{title}" class="form-control" id="title" required>
+          <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+        </div>
+        <div class="mb-3">
+          <label for="isbn" class="form-label">ISBN: </label>
+          <input type="text" th:field="*{isbn}" class="form-control" id="isbn" required>
+          <span th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></span>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description: </label>
+          <textarea cols="30" rows="10" th:field="*{description}" class="form-control"
+                    id="description" required th:style="'resize: none'"></textarea>
+          <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+        </div>
+        <div class="text-end">
+          <button class="btn btn-success">Add Book</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+</body>
+</html>
