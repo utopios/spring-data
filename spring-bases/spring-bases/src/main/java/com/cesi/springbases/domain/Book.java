@@ -1,5 +1,6 @@
 package com.cesi.springbases.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -38,6 +39,7 @@ public class Book {
     @ManyToMany
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
     inverseJoinColumns = @JoinColumn(name = "author_id"))
+    @JsonBackReference
     private Set<Author> authors = new HashSet<>();
 
     public Long getId() {

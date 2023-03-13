@@ -1,5 +1,6 @@
 package com.cesi.springbases.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -21,6 +22,7 @@ public class Author {
     * de récupération de jointures
     * */
     @ManyToMany(mappedBy = "authors")
+    @JsonBackReference
     private Set<Book> books = new HashSet<>();
 
     public Long getId() {
