@@ -28,7 +28,9 @@ public class BookController {
     }
 
     /*
-    * Pour obtenir une route '/books' de type Get, on
+    * Pour obtenir une route '/books' de type Get, on créé une méthode dont le but sera la population du
+    * modèle de données et l'envoi d'une vue Thymeleaf dont le nom sera 'bookList'. Cette vue devra se trouver dans
+    * le dossier ressources/templates et porter le même nom que spécifié ici.
     * */
     @GetMapping
     public String getBooks(Model model) {
@@ -42,6 +44,10 @@ public class BookController {
         return "createBook";
     }
 
+    /*
+    * Pour les méthodes gérant des données entrantes, on va devoir récupérer l'objet envoyé par notre formulaire après sa validation par
+    * les annotations @Validated. L'objet pourra ainsi être traité au niveau de notre code Java avant le renvoie d'une page existante via la redirection.
+    * */
     @PostMapping("/create")
     public String createBook(@Validated Book book, BindingResult result) {
         if (result.hasErrors()) {
@@ -50,6 +56,13 @@ public class BookController {
         bookService.save(book);
         return "redirect:/books";
     }
+
+    /*
+    * Dans le cas où notre route demande une variable dynamique, alors la syntaxe est la suivante :chemin/{nom_variable}
+    * Cette variable sera récupérable via l'annotation @PathVariable et pasage entre les parenthèses du même nom que précisé dans le
+    * mapping du chemin
+    *
+    * */
 
     @GetMapping("/edit/{id}")
     public String editBookForm(@PathVariable("id") Long id, Model model) {
