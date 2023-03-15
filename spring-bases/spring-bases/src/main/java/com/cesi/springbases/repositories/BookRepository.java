@@ -1,6 +1,7 @@
 package com.cesi.springbases.repositories;
 
 import com.cesi.springbases.domain.Book;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Set;
@@ -16,4 +17,8 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     Book findByTitle(String title);
 
     Set<Book> findAllByTitleLike(String title);
+
+
+    @Query("SELECT b FROM Book b WHERE b.title like :search OR b.description like :search")
+    Set<Book> searchBooks(String search);
 }

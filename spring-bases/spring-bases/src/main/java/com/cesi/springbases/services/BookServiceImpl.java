@@ -59,6 +59,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Set<Book> findAllByTitle(String title) {
-        return bookRepository.findAllByTitleLike(title);
+        return bookRepository.searchBooks(title);
     }
 }

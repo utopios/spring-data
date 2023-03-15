@@ -36,7 +36,7 @@ public class BookController {
     }
     @PostMapping("search")
     public String searchBooks(@RequestParam("search") String search, Model model) {
-        model.addAttribute("books", bookService.findAllByTitle(search + "%"));
+        model.addAttribute("books", bookService.findAllByTitle("%" + search + "%"));
         return "bookList";
     }
     @GetMapping("/create")
