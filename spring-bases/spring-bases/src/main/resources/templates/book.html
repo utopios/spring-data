@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}">
+    <script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.min.js}"></script>
+    <title>Edit a Book</title>
+</head>
+<body>
+<main class="container">
+    <div class="my-3 row">
+        <div class="col-10 offset-1 p-3 rounded bg-dark text-light">
+            <h1>Edit a Book</h1>
+            <hr>
+
+                <div class="mb-3">
+                    <span th:text="${book.title}"></span>
+                </div>
+                <div class="mb-3">
+                    <span th:text="${book.isbn}"></span>
+                </div>
+                <div class="mb-3">
+                    <span th:text="${book.description}"></span>
+                </div>
+
+
+        </div>
+    </div>
+</main>
+</body>
+</html>

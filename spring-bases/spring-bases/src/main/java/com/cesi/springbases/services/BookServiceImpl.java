@@ -50,4 +50,9 @@ public class BookServiceImpl implements BookService {
         // Pour la suppression, il s'agit d'une simple délégation de la fonctionnalité.
         bookRepository.deleteById(id);
     }
+
+    @Override
+    public Book findByName(String name) {
+        return bookRepository.findByTitle(name);
+    }
 }

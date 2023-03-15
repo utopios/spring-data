@@ -76,6 +76,18 @@ public class BookController {
         }
     }
 
+    @GetMapping("/{name}")
+    public String getBook(@PathVariable("name") String name, Model model) {
+        Book bookFound = bookService.findByName(name);
+
+        if (bookFound != null) {
+            model.addAttribute("book", bookFound);
+            return "book";
+        } else {
+            return "redirect:/books";
+        }
+    }
+
     @PostMapping("/edit/{id}")
     public String editBook(@PathVariable("id") Long id, @Validated Book book, BindingResult result) {
         if (result.hasErrors()) {

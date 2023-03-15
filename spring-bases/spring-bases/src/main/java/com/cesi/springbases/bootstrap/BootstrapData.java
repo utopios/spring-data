@@ -26,7 +26,7 @@ public class BootstrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // On va créer un nouveau livre
-        Book tgc = new Book();
+        /*Book tgc = new Book();
 
         // Lui instancier ses champs
         tgc.setIsbn("123-147852-369");
@@ -58,6 +58,6 @@ public class BootstrapData implements CommandLineRunner {
         System.out.println("\n=== Books from Philip PULLMAN ===");
         for (Book b : philipSaved.getBooks()) {
             System.out.println(b.toString());
-        }
+        }*/
     }
 }
