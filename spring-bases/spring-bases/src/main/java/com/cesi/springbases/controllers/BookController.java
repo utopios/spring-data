@@ -1,6 +1,7 @@
 package com.cesi.springbases.controllers;
 
 import com.cesi.springbases.domain.Book;
+import com.cesi.springbases.domain.Favoris;
 import com.cesi.springbases.services.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 * */
 @Controller
 @RequestMapping("/books")
-@SessionAttributes("lastBook")
+@SessionAttributes(names = {"lastBook", "favoris"})
 public class BookController {
     private final BookService bookService;
 
@@ -41,11 +42,23 @@ public class BookController {
         return  new Book();
     }
 
+    @ModelAttribute("favoris")
+    public Favoris favoris() {
+        return  new Favoris();
+    }
+
     @PostMapping("search")
     public String searchBooks(@RequestParam("search") String search, Model model) {
         model.addAttribute("books", bookService.findAllByTitle("%" + search + "%"));
         return "bookList";
     }
+
+    @GetMapping("favoris")
+    public String getFavoris(Model model, @ModelAttribute("favoris") Favoris favoris) {
+        model.addAttribute("books", favoris.getBooks());
+        return "bookList";
+    }
+
     @GetMapping("/create")
     public String createBookForm(Model model) {
         model.addAttribute("book", new Book());
@@ -72,6 +85,12 @@ public class BookController {
     *
     * */
 
+    @GetMapping("/favoris/{id}")
+    public String addToFavoris(@PathVariable("id") Long id, @ModelAttribute("favoris") Favoris favoris) {
+        Book bookFound = bookService.findById(id);
+        favoris.getBooks().add(bookFound);
+        return "redirect:/books";
+    }
     @GetMapping("/edit/{id}")
     public String editBookForm(@PathVariable("id") Long id, Model model) {
         Book bookFound = bookService.findById(id);
@@ -84,7 +103,7 @@ public class BookController {
         }
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/search/{name}")
     public String getBook(@PathVariable("name") String name, Model model, @ModelAttribute("lastBook") Book lastBook) {
         Book bookFound = (lastBook.getId() != null) ? lastBook : bookService.findByName(name);
         lastBook.setId(bookFound.getId());

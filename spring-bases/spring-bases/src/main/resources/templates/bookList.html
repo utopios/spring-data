@@ -39,6 +39,7 @@
           <td th:text="${book.isbn}"></td>
           <td>
             <a th:href="@{/books/edit/{id}(id=${book.id})}" class="btn btn-warning me-2">Edit</a>
+            <a th:href="@{/books/favoris/{id}(id=${book.id})}" class="btn btn-warning me-2">Ajouter Favoris</a>
             <a th:href="@{/books/delete/{id}(id=${book.id})}" class="btn btn-danger" onclick="return confirm('Are you sure you wanna delete that book?')">Delete</a>
           </td>
         </tr>
