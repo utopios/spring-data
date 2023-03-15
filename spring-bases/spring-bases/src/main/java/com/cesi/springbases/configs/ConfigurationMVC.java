@@ -1,6 +1,8 @@
 package com.cesi.springbases.configs;
 
+import com.cesi.springbases.domain.Book;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -18,5 +20,10 @@ public class ConfigurationMVC implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/");
+    }
+
+    @ModelAttribute("lastBook")
+    public Book lastBook() {
+        return  new Book();
     }
 }

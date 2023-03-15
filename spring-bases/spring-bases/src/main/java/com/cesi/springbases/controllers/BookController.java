@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 * */
 @Controller
 @RequestMapping("/books")
+@SessionAttributes("lastBook")
 public class BookController {
     private final BookService bookService;
 
@@ -34,6 +35,12 @@ public class BookController {
         model.addAttribute("books", bookService.findAll());
         return "bookList";
     }
+
+    @ModelAttribute("lastBook")
+    public Book lastBook() {
+        return  new Book();
+    }
+
     @PostMapping("search")
     public String searchBooks(@RequestParam("search") String search, Model model) {
         model.addAttribute("books", bookService.findAllByTitle("%" + search + "%"));
@@ -78,9 +85,12 @@ public class BookController {
     }
 
     @GetMapping("/{name}")
-    public String getBook(@PathVariable("name") String name, Model model) {
-        Book bookFound = bookService.findByName(name);
-
+    public String getBook(@PathVariable("name") String name, Model model, @ModelAttribute("lastBook") Book lastBook) {
+        Book bookFound = (lastBook.getId() != null) ? lastBook : bookService.findByName(name);
+        lastBook.setId(bookFound.getId());
+        lastBook.setTitle(bookFound.getTitle());
+        lastBook.setDescription(bookFound.getDescription());
+        lastBook.setIsbn(bookFound.getIsbn());
         if (bookFound != null) {
             model.addAttribute("book", bookFound);
             return "book";
