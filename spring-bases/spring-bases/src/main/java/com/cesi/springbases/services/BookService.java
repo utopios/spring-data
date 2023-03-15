@@ -3,6 +3,7 @@ package com.cesi.springbases.services;
 import com.cesi.springbases.domain.Book;
 
 import java.util.List;
+import java.util.Set;
 
 /*
 * Pour pouvoir par la suite utiliser nos données dans un contrôleur MVC, il est de bon ton de réaliser un service.
@@ -17,4 +18,6 @@ public interface BookService {
     void deleteById(Long id);
 
     Book findByName(String name);
+
+    Set<Book> findAllByTitle(String title);
 }

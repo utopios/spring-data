@@ -5,6 +5,7 @@ import com.cesi.springbases.repositories.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /*
 * Pour pouvoir créer un service réel, il nous faut faire une classe qui va avoir comme annotation @Service.
@@ -54,5 +55,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book findByName(String name) {
         return bookRepository.findByTitle(name);
+    }
+
+    @Override
+    public Set<Book> findAllByTitle(String title) {
+        return bookRepository.findAllByTitleLike(title);
     }
 }
